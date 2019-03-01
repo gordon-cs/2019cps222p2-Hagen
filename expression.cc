@@ -114,46 +114,75 @@ int Expression::evaluate(string postfix) throw (DivideByZeroError)
 {
     stack<int> solution; // a stack of int
     
-    int operands;
+    int operands; 
 
     for(int i = 0; i < postfix.length(); i++)
     {
+        // when an operand is encountered in postfix
         if(isdigit(postfix[i]))
         {
+            // push that operand onto the stack
             solution.push(postfix[i] - '0');
         }
+        // when an operator is encountered
         else if( postfix[i] == '+')
         {
+            // operand1 at the top of the stack
             int operand1 = solution.top();
+            // pop the operand from the stack
             solution.pop();
+            // operand2 at the top of the stack
             int operand2 = solution.top();
+            // pop the operand from the stack
             solution.pop();
+
+            // add both operand2 and operand1 together and then push it to stack
             solution.push(operand2 + operand1);
         }
+        // when another kind of operator is encountered
         else if( postfix[i] == '-')
         {
+            // operand1 at the top of the stack
             int operand1 = solution.top();
+            // pop the operand from the stack
             solution.pop();
+            // operand2 at the top of the stack
             int operand2 = solution.top();
+            // pop the operand from the stack
             solution.pop();
+
+            // add both operand2 and operand1 together and then push it to stack
             solution.push(operand2 - operand1);
         }
         else if( postfix[i] == '*')
         {
+            // operand1 at the top of the stack
             int operand1 = solution.top();
+            // pop the operand from the stack
             solution.pop();
+            // operand2 at the top of the stack
             int operand2 = solution.top();
+            // pop the operand from the stack
             solution.pop();
+
+            // add both operand2 and operand1 together and then push it to stack
             solution.push(operand2 * operand1);
         }
         else if( postfix[i] == '/')
         {
+            // operand1 at the top of the stack
             int operand1 = solution.top();
+            // pop the operand from the stack
             solution.pop();
+            // operand2 at the top of the stack
             int operand2 = solution.top();
+            // pop the operand from the stack
             solution.pop();
+
+            // add both operand2 and operand1 together and then push it to stack
             solution.push(operand2 / operand1);
         }
+        // pop top character from the stack and output it to the solution
         solution.pop();    
     }
     return operands;
