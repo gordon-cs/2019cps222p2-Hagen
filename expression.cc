@@ -57,6 +57,11 @@ string Expression::convertToPostfix(string infix) throw (SyntaxError)
             postfix += infix[x];
         }
 
+        else if(!isdigit(infix[x]))
+        {
+            throw SyntaxError(x, "Error, was expecting a digit");
+        }
+
         // case: '('
         else if (infix[x] == '(')
         {
@@ -99,9 +104,9 @@ string Expression::convertToPostfix(string infix) throw (SyntaxError)
             postfix += operators.top();
             operators.pop();
         }
-    }  
+    }
+    return postfix; 
 }
-// throw (Syntax Error) - outside for loop possibly
 
 
 
@@ -109,32 +114,55 @@ int Expression::evaluate(string postfix) throw (DivideByZeroError)
 {
     stack<int> solution; // a stack of int
     
-    string operands;
+    int operands;
 
-    for(int i = 0; i < postfix.length(): i++)
+    for(int i = 0; i < postfix.length(); i++)
     {
-
         if(isdigit(postfix[i]))
         {
-            operands += postfix.push();
+            solution.push(postfix[i] - '0');
         }
-        else if(operands.pop.())
+        else if( postfix[i] == '+')
         {
-            operands += postfix.push();
+            int operand1 = solution.top();
+            solution.pop();
+            int operand2 = solution.top();
+            solution.pop();
+            solution.push(operand2 + operand1);
         }
-        else if(solution != postfix[i])
+        else if( postfix[i] == '-')
         {
-            throw DivideByZeroError;
+            int operand1 = solution.top();
+            solution.pop();
+            int operand2 = solution.top();
+            solution.pop();
+            solution.push(operand2 - operand1);
         }
+        else if( postfix[i] == '*')
+        {
+            int operand1 = solution.top();
+            solution.pop();
+            int operand2 = solution.top();
+            solution.pop();
+            solution.push(operand2 * operand1);
+        }
+        else if( postfix[i] == '/')
+        {
+            int operand1 = solution.top();
+            solution.pop();
+            int operand2 = solution.top();
+            solution.pop();
+            solution.push(operand2 / operand1);
+        }
+        solution.pop();    
     }
-    else
-    {
-        solution  = postfix[i]
-    }
-
+    return operands;
 }
     
-
+int main()
+{
+    
+}
 
 /*string Expression::convertToPrefix(string postfix) 
 // convert postfix to prefix by doing a reverse
