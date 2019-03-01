@@ -46,27 +46,22 @@ string Expression::convertToPostfix(string infix) throw (SyntaxError)
     stack<char> operators; // a stack of char
     
     string postfix;
-
-    for(int x = 0; x < infix.length(); x++)
+    int length = infix.length();
+    for(int x = 0; x < length; x++)
     {
        
         // case: operand
         if (isdigit(infix[x]))
         {
-            // output immediately to the postfix
+            // if character is an operand output it to postfix
             postfix += infix[x];
-        }
-
-        else if(!isdigit(infix[x]))
-        {
-            throw SyntaxError(x, "Error, was expecting a digit");
         }
 
         // case: '('
         else if (infix[x] == '(')
         {
             // push character scanned
-            operators.push('(');
+            operators.push(infix[x]);
         }
 
         // case: ')'
@@ -114,25 +109,31 @@ int Expression::evaluate(string postfix) throw (DivideByZeroError)
 {
     stack<int> solution; // a stack of int
     
-    int operands; 
+    int operands = 0;
+    int length = postfix.length();
 
-    for(int i = 0; i < postfix.length(); i++)
+    for(int i = 0; i < length; i++)
     {
         // when an operand is encountered in postfix
         if(isdigit(postfix[i]))
         {
+            int x;
+            x = (int)postfix[i]-48;
             // push that operand onto the stack
-            solution.push(postfix[i] - '0');
+            solution.push(x);
         }
         // when an operator is encountered
-        else if( postfix[i] == '+')
+        else if(postfix[i] == '+')
         {
             // operand1 at the top of the stack
             int operand1 = solution.top();
+
             // pop the operand from the stack
             solution.pop();
+
             // operand2 at the top of the stack
             int operand2 = solution.top();
+
             // pop the operand from the stack
             solution.pop();
 
@@ -144,38 +145,49 @@ int Expression::evaluate(string postfix) throw (DivideByZeroError)
         {
             // operand1 at the top of the stack
             int operand1 = solution.top();
+
             // pop the operand from the stack
             solution.pop();
+
             // operand2 at the top of the stack
             int operand2 = solution.top();
+
             // pop the operand from the stack
             solution.pop();
 
             // add both operand2 and operand1 together and then push it to stack
             solution.push(operand2 - operand1);
         }
+
         else if( postfix[i] == '*')
         {
             // operand1 at the top of the stack
             int operand1 = solution.top();
+
             // pop the operand from the stack
             solution.pop();
+
             // operand2 at the top of the stack
             int operand2 = solution.top();
+
             // pop the operand from the stack
             solution.pop();
 
             // add both operand2 and operand1 together and then push it to stack
             solution.push(operand2 * operand1);
         }
+
         else if( postfix[i] == '/')
         {
             // operand1 at the top of the stack
             int operand1 = solution.top();
+
             // pop the operand from the stack
             solution.pop();
+
             // operand2 at the top of the stack
             int operand2 = solution.top();
+
             // pop the operand from the stack
             solution.pop();
 
@@ -187,12 +199,7 @@ int Expression::evaluate(string postfix) throw (DivideByZeroError)
     }
     return operands;
 }
-    
-int main()
-{
-    
-}
 
-/*string Expression::convertToPrefix(string postfix) 
+string Expression::convertToPrefix(string postfix) 
 // convert postfix to prefix by doing a reverse
-{ return string(""); } // Students: replace return code and remove this comment*/
+{}
