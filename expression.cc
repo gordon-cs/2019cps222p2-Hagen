@@ -41,41 +41,31 @@ string Expression::convertToPostfix(string infix) throw (SyntaxError)
     int length = infix.length();
     for(int x = 0; x < length; x++)
     {
-        
-        cout << "-----" << endl;
         // case: operand
         if (isdigit(infix[x]))
         {
-            cout << "is this a digit" << endl;
             // if character is an operand output it to postfix
             postfix += infix[x];
-            cout << "add the digit to the string postfix" << endl;
         }
 
         // case: '('
         else if (infix[x] == '(')
         {
-            cout << "checks to see if this is a open parenthesis" << endl;
             // push character scanned
             operators.push(infix[x]);
-            cout << "pushes the open parenthesis onto the stack" << endl;
         }
         
         // case: ')'
         else if(infix[x] == ')')
         {
-            cout << "current char was )" << endl;
             // while top of stack is not a '('
             while(operators.top() != '(')
             {
-                cout << "while the operator is not a '('" << endl;
                 // pop top operator from the stack and output it to the postfix
-                cout << "pop the operator from the top of the stack and add it to the string postfix" << endl;
                 postfix += operators.top();
                 operators.pop();
             }
             // pop the '(' from the stack and discard it
-            cout << "the operator gets popped from the stack" << endl;
             cout << operators.size() << endl;
             operators.pop();
         }
@@ -83,7 +73,6 @@ string Expression::convertToPostfix(string infix) throw (SyntaxError)
         // case: operator
         else 
         {
-            cout << "current char is an operator" << endl;
             cout << operators.size() << endl;
             // while stack is not empty & precedence >= precedence character
             while(!operators.empty() && precedence(operators.top())>= precedence(infix[x]))
@@ -98,22 +87,13 @@ string Expression::convertToPostfix(string infix) throw (SyntaxError)
         
     }
 
-    cout << "Finished for loop" << endl;
-cout << "operators size " << operators.size();
-
     // while stack is not empty
     while(!operators.empty())
     {
-        cout << "pop the top character from the stack and add it to the string postfix" << endl;
         // pop top character from the stack and output it to the postfix
         postfix += operators.top();
         operators.pop();
-        
-        
     }
-
-    cout << "returns the string postfix that has the new values from the stack" << endl;
- cout << postfix << endl;
     return postfix; 
 }
 
