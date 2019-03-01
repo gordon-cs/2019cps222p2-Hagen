@@ -66,14 +66,12 @@ string Expression::convertToPostfix(string infix) throw (SyntaxError)
                 operators.pop();
             }
             // pop the '(' from the stack and discard it
-            cout << operators.size() << endl;
             operators.pop();
         }
 
         // case: operator
         else 
         {
-            cout << operators.size() << endl;
             // while stack is not empty & precedence >= precedence character
             while(!operators.empty() && precedence(operators.top())>= precedence(infix[x]))
             {   
@@ -106,6 +104,7 @@ int Expression::evaluate(string postfix) throw (DivideByZeroError)
     int length = postfix.length();
     for(int i = 0; i < length; i++)
     {
+        cout << "checks to see if the first value in the postfix is a digit" << endl;
         // when an operand is encountered in postfix
         if(isdigit(postfix[i]))
         {
@@ -113,28 +112,30 @@ int Expression::evaluate(string postfix) throw (DivideByZeroError)
             x = (int)postfix[i]-48;
             // push that operand onto the stack
             solution.push(x);
-            //cerr << x << endl;
         }
+
          else if(postfix[i] == '+')
         {
             // operand1 at the top of the stack
             int operand1 = solution.top();
-
+            cout <<"pops first operand from the stack" << endl;
             // pop the operand from the stack
             solution.pop();
 
             // operand2 at the top of the stack
             int operand2 = solution.top();
-
+            cout <<"pops second operand from the stack"<< endl;
             // pop the operand from the stack
             solution.pop();
 
             // add both operand2 and operand1 together and then push it to stack
             solution.push(operand2 + operand1);
+            cout << "prints both the operands together" << endl;
         }
 
         else if(postfix[i] == '-')
         {
+            cout << "checks the first operand on top of the stack" << endl;
             // operand1 at the top of the stack
             int operand1 = solution.top();
 
@@ -143,19 +144,20 @@ int Expression::evaluate(string postfix) throw (DivideByZeroError)
 
             // operand2 at the top of the stack
             int operand2 = solution.top();
-
+            cout <<"pops second operand from the stack" << endl;
             // pop the operand from the stack
             solution.pop();
 
-            // add both operand2 and operand1 together and then push it to stack
+            // subtract both operand2 and operand1 together and then push it to stack
             solution.push(operand2 - operand1);
+            cout << "prints both the operands subtracted together" << endl;
         }
 
         else if( postfix[i] == '*')
         {
             // operand1 at the top of the stack
             int operand1 = solution.top();
-
+            cout <<"checks that the first operand is a digit" << endl;
             // pop the operand from the stack
             solution.pop();
 
@@ -164,9 +166,10 @@ int Expression::evaluate(string postfix) throw (DivideByZeroError)
 
             // pop the operand from the stack
             solution.pop();
-
-            // add both operand2 and operand1 together and then push it to stack
+            cout <<"pops second operand from the stack" << endl;
+            // multiple both operand2 and operand1 together and then push it to stack
             solution.push(operand2 * operand1);
+            cout << "prints both the operands multipled together" << endl;
         }
 
         else if( postfix[i] == '/')
@@ -183,8 +186,14 @@ int Expression::evaluate(string postfix) throw (DivideByZeroError)
             // pop the operand from the stack
             solution.pop();
 
+            // divide both operand2 and operand1 together and then push the result to the stack
+            solution.push(operand2 / operand1);
+            cout << "prints both the operands divided together" << endl;
+
         }
     }
+    cout << operands << endl;
+
     return operands;
 }
 
