@@ -110,6 +110,7 @@ int Expression::evaluate(string postfix) throw (DivideByZeroError)
         {
             int x;
             x = (int)postfix[i]-48;
+            x++;
             // push that operand onto the stack
             solution.push(x);
         }
@@ -121,16 +122,20 @@ int Expression::evaluate(string postfix) throw (DivideByZeroError)
             cout <<"pops first operand from the stack" << endl;
             // pop the operand from the stack
             solution.pop();
+            cout << solution.size() << endl;
 
             // operand2 at the top of the stack
             int operand2 = solution.top();
             cout <<"pops second operand from the stack"<< endl;
             // pop the operand from the stack
             solution.pop();
+            cout << solution.size() << endl;
 
             // add both operand2 and operand1 together and then push it to stack
             solution.push(operand2 + operand1);
             cout << "prints both the operands together" << endl;
+            cout << solution.size() << endl;
+            cout << postfix << endl;
         }
 
         else if(postfix[i] == '-')
@@ -141,16 +146,19 @@ int Expression::evaluate(string postfix) throw (DivideByZeroError)
 
             // pop the operand from the stack
             solution.pop();
+            cout << solution.size() << endl;
 
             // operand2 at the top of the stack
             int operand2 = solution.top();
             cout <<"pops second operand from the stack" << endl;
             // pop the operand from the stack
             solution.pop();
+            cout << solution.size() << endl;
 
             // subtract both operand2 and operand1 together and then push it to stack
             solution.push(operand2 - operand1);
             cout << "prints both the operands subtracted together" << endl;
+            cout << solution.size() << endl;
         }
 
         else if( postfix[i] == '*')
@@ -160,16 +168,20 @@ int Expression::evaluate(string postfix) throw (DivideByZeroError)
             cout <<"checks that the first operand is a digit" << endl;
             // pop the operand from the stack
             solution.pop();
+            cout << solution.size() << endl;
 
             // operand2 at the top of the stack
             int operand2 = solution.top();
 
             // pop the operand from the stack
             solution.pop();
+            cout << solution.size() << endl;
+
             cout <<"pops second operand from the stack" << endl;
             // multiple both operand2 and operand1 together and then push it to stack
             solution.push(operand2 * operand1);
             cout << "prints both the operands multipled together" << endl;
+            cout << solution.size() << endl;
         }
 
         else if( postfix[i] == '/')
@@ -179,17 +191,19 @@ int Expression::evaluate(string postfix) throw (DivideByZeroError)
 
             // pop the operand from the stack
             solution.pop();
+            cout << solution.size() << endl;
 
             // operand2 at the top of the stack
             int operand2 = solution.top();
 
             // pop the operand from the stack
             solution.pop();
+            cout << solution.size() << endl;
 
             // divide both operand2 and operand1 together and then push the result to the stack
             solution.push(operand2 / operand1);
             cout << "prints both the operands divided together" << endl;
-
+            cout << solution.size() << endl;
         }
     }
     cout << operands << endl;
