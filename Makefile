@@ -11,10 +11,16 @@
 # Google Test must be cloned and built.  If it's not in the same parent
 # directory (..), change GTEST_ROOT to the actual location.
 GTEST_ROOT = ../googletest/googletest
-GTEST_MAIN = $(GTEST_ROOT)/make/gtest_main.a
-CPPFLAGS = -I $(GTEST_ROOT)/include -Wall -g
-# -Wall requests more warnings
+
+#RT: get updated starter code, to work with current version of googletest
+GTEST_MAIN = $(GTEST_ROOT)/make/libgtest_main.a
+
+# Use C 2011 (required by Google Test, and a good idea anyway)
+CXXFLAGS = -std=c++11
+
+# -Wall and -Wextra requests more warnings -- fix them for clean code
 # -g compiles for debugging
+CPPFLAGS = -I $(GTEST_ROOT)/include -Wall -Wextra -g
 
 # Tabs are important in makefiles.
 # There must be a tab before each command.
